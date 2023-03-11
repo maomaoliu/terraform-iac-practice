@@ -40,7 +40,10 @@ public class BookRepositoryImpl extends BaseRepository implements BookRepository
   @Override
   public PageResult<Book> findPageBySearchKey(String searchKey, PageQuery pageQuery) {
     Pageable pageable = PageRequest.of(pageQuery.page() - 1, pageQuery.size());
-    Page<BookPO> pageBookPOs = bookJpaRepository.findAllByTitleContaining(searchKey, pageable);
+    Page<BookPO> pageBookPOs =
+        searchKey == null
+            ? bookJpaRepository.findAll(pageable)
+            : bookJpaRepository.findAllByTitleContaining(searchKey, pageable);
     return new PageResult<>(
         pageBookPOs.map(mapper::toModel).toList(), pageBookPOs.getTotalElements());
   }

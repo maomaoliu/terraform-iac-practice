@@ -77,4 +77,17 @@ class BookApiTest extends BaseApiTest {
     assertThat(bookPageResult.total()).isEqualTo(1);
     assertThat(bookPageResult.data()).hasSize(1);
   }
+
+  @Test
+  @Sql("/db/book/two-books.sql")
+  void should_get_books_pagable_without_searchKey() throws Exception {
+    ResultActions resultActions =
+        perform(get("/books").param("page", "1").param("size", "10")).andExpect(status().isOk());
+
+    PageResult<Book> bookPageResult =
+        parseResponse(resultActions, new TypeReference<PageResult<Book>>() {});
+
+    assertThat(bookPageResult.total()).isEqualTo(2);
+    assertThat(bookPageResult.data()).hasSize(2);
+  }
 }
