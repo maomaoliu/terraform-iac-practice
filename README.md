@@ -58,6 +58,9 @@ step by step 学习基于 `Terraform`、 `ArgoCD` 的 K8S 集群下搭建自动�
 ## 使用方法
 
 - fork 代码库
-- 检出分支 step-0 `git checkout step-0`，根据 README 中的需求分析和任务清单进行练习即可。
+- `git submodule init`
+- `git submodule update`
+- 阅读 docs/step-0.md，开始练习
+
 
 
